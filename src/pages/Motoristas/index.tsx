@@ -60,13 +60,13 @@ export const Motoristas = () => {
   const onSubmit = async (body: any) => {
     try {
         if (editar) {
-            const {data} = await api.patch(`/motoristas/${selectedMotorista}/`, body)
+            await api.patch(`/motoristas/${selectedMotorista}/`, body)
             toast.success("Motorista editado com sucesso!")
             getDrivers()
             setEditar(false)
             setSelectedMotorista(motoristasOptions[0].id)
         } else {
-            const {data} = await api.post(`/motoristas/`, body)
+            await api.post(`/motoristas/`, body)
             toast.success("Motorista cadastrado com sucesso!")
             getDrivers()
             setSelectedMotorista(motoristasOptions[0].id)

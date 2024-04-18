@@ -44,13 +44,13 @@ export const Veiculos = () => {
   const onSubmit = async (body: any) => {
     try {
       if (editar) {
-        const { data } = await api.patch(`/veiculos/${selectedVeiculo}/`, body);
+        await api.patch(`/veiculos/${selectedVeiculo}/`, body);
         toast.success("Veículo editado com sucesso!");
         getVeiculos();
         setEditar(false);
         setSelectedVeiculo(veiculosOptions[0].id);
       } else {
-        const { data } = await api.post(`/veiculos/`, body);
+        await api.post(`/veiculos/`, body);
         toast.success("Veículo cadastrado com sucesso!");
         getVeiculos();
         setSelectedVeiculo(veiculosOptions[0].id);

@@ -3,10 +3,10 @@ import Logo from '../../assets/logo.png'
 import { Link } from "react-router-dom"
 
 interface IProps {
-  changePages: () => void;
+  changePages?: () => void;
 }
 
-export const Header = ({ changePages } : IProps) => {
+export const Header = ({ changePages= () => console.log() } : IProps) => {
   return (
     <HeaderStyle>
       <div className="logo">
