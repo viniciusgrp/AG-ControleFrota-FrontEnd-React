@@ -32,6 +32,31 @@ export const HomeStyle = styled.main`
     background-color: var(--secundary);
     border-radius: 15px;
   }
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+    gap: 8px;
+    max-width: 300px;
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .clean {
+      background-color: gray;
+      color: white;
+    }
+
+    .search {
+      background-color: blue;
+      color: white;
+    }
+  }
   h1 {
     font-weight: 600;
   }
@@ -41,7 +66,7 @@ export const HomeStyle = styled.main`
   }
 
   form {
-      margin: 0 auto;
+    margin: 0 auto;
     margin-top: 16px;
     width: 90%;
     display: flex;
@@ -55,40 +80,40 @@ export const HomeStyle = styled.main`
     }
 
     input {
-        padding: 0 16px;
+      padding: 0 16px;
     }
 
     .timeLabel {
-        text-align: center;
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      .timeInput {
         width: 100%;
-        max-width: 500px;
-        .timeInput {
-            width: 100%;
-            height: 50px;
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid gray;
-        }
+        height: 50px;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid gray;
+      }
     }
 
     .button {
-        width: 100%;
-        max-width: 500px;
-        padding: 16px;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        text-transform: uppercase;
-        font-weight: 500;
+      width: 100%;
+      max-width: 500px;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      text-transform: uppercase;
+      font-weight: 500;
     }
 
     .confirm {
-        background-color: var(--primary);
+      background-color: var(--primary);
     }
 
     .cancel {
-        background-color: red;
-        color: white;
+      background-color: red;
+      color: white;
     }
   }
 
@@ -98,14 +123,14 @@ export const HomeStyle = styled.main`
     border-radius: 8px;
     max-width: 90vw;
   }
-   .MuiFormControl-root {
+  .MuiFormControl-root {
     margin-left: 5%;
     width: 100%;
     max-width: 500px;
-}
-.MuiInputBase-root {
+  }
+  .MuiInputBase-root {
     label {
-        text-align: unset;
+      text-align: unset;
     }
     width: 100%;
     max-width: 500px;
@@ -114,6 +139,27 @@ export const HomeStyle = styled.main`
   form {
     .MuiFormControl-root {
       margin: 0;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .filterTitle {
+        margin: 12px 5%;
+    } 
+    .filter {
+      margin: 0 5%;
+      flex-direction: row;
+
+      .clean {
+        min-width: 150px;
+      }
+      .search {
+        min-width: 150px;
+      }
+
+      .react-date-picker__wrapper {
+        max-width: 250px;
+      }
     }
   }
 `;

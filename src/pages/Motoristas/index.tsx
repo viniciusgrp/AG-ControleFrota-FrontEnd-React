@@ -22,7 +22,7 @@ export const Motoristas = () => {
     number | null | unknown
   >(null);
   const [editar, setEditar] = useState(false);
-  const [modalDelete, setModalDelete] = useState<boolean>(true)
+  const [modalDelete, setModalDelete] = useState<boolean>(false)
 
   const {
     register,

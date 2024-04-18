@@ -41,6 +41,7 @@ export const Home = () => {
     data_saida: "",
     data_retorno: "",
   });
+  const [searchDate, setSearchDate] = useState<Date | null>(null)
 
   const { register, handleSubmit, setValue, watch } = useForm();
 
@@ -172,9 +173,29 @@ export const Home = () => {
     setModule("criacao")
   }
 
+  const getControleDate = async () => {
+    if (!searchDate) {
+        toast.error("Selecione uma data")
+        return
+    }
+    try {
+    const { data } = await api.get("/controle/date/", {
+      params: {
+        data_pesquisa: format(new Date(searchDate), 'yyyy-MM-dd')
+      },
+    });
+    setData(data)
+    } catch (error) {
+        console.error(error)
+    }
+  }
+
   useEffect(() => {
-    console.log(selectedMotorista)
-  },[selectedMotorista])
+    data?.forEach((e) => {
+        (e.veiculo.km_troca_oleo - e.km_saida <= 1000 ||
+          e.veiculo.km_troca_oleo - (e.km_retorno || 0) <= 1000) && toast.error(`Veículo de placa ${e.veiculo.placa} está próximo à troca de óleo.`)
+    })
+  },[data])
 
   return (
     <HomeStyle>
@@ -189,6 +210,23 @@ export const Home = () => {
           </button>
         )}
       </div>
+        <h3 className="filterTitle">Pesquisa por data de saída</h3>
+        <div className="filter">
+          <DatePicker
+            value={searchDate}
+            onChange={(date) => setSearchDate(date)}
+          />
+          <button className="clean" onClick={() => setSearchDate(null)}>
+            Limpar
+          </button>
+          <button
+            className="search"
+            onClick={() => getControleDate()}
+            disabled={!searchDate}
+          >
+            Pesquisar
+          </button>
+        </div>
       {module === "listagem" ? (
         isMobile ? (
           data?.map((c) => (
@@ -202,6 +240,7 @@ export const Home = () => {
         ) : (
           <ControlTable
             controle={data}
+            selectedControle={selectedControle}
             isLoading={isLoading}
             setSelectedControle={handleSelectControle}
             handleOpenModal={handleOpenModal}

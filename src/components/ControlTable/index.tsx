@@ -7,6 +7,7 @@ interface IProps {
   isLoading: boolean;
   controle: Controle[] | null;
   setSelectedControle: (id: number) => void;
+  selectedControle: number | null;
   handleOpenModal: () => void;
   handleEdit: (controle: Controle) => void;
 }
@@ -30,11 +31,6 @@ export const ControlTable = ({
             <th>Data Saída</th>
             <th>Hora Saída</th>
             <th>Destino</th>
-            <th>KM Saída</th>
-            <th>KM Retorno</th>
-            <th>Data Retorno</th>
-            <th>Hora Retorno</th>
-            <th>KM Troca Óleo</th>
             <th>Editar</th>
           </tr>
         </thead>
@@ -99,12 +95,8 @@ export const ControlTable = ({
           <th>Data Saída</th>
           <th>Hora Saída</th>
           <th>KM Saída</th>
-          <th>KM Retorno</th>
-          <th>Data Retorno</th>
-          <th>Hora Retorno</th>
-          <th>KM Troca de Óleo</th>
           <th>Destino</th>
-          <th>Editar</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -116,6 +108,7 @@ export const ControlTable = ({
             handleEdit={handleEdit}
           />
         ))}
+
       </tbody>
     </ControlTableStyle>
   );

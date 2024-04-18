@@ -1,7 +1,8 @@
-import { PencilSimple, TrashSimple } from "@phosphor-icons/react";
+import { Eye, PencilSimple, TrashSimple } from "@phosphor-icons/react";
 import { Controle } from "../../../interfaces";
 import { useState } from "react";
 import { Modal } from "../../Modal";
+import { ControlModal } from "../../ControlModal";
 
 interface IProps {
   controle: Controle | null;
@@ -26,6 +27,12 @@ export const ControlTableLine = ({
     id: null,
   });
 
+  const [controleModal, setControleModal] = useState<boolean>(false)
+
+  const handleModal = () => {
+    setControleModal(!controleModal)
+  }
+
   const handCloseModal = () => setModal({ showModal: false, id: null });
   return (
     <tr>
@@ -42,19 +49,16 @@ export const ControlTableLine = ({
       <td>{controle?.data_saida}</td>
       <td>{controle?.hora_saida}</td>
       <td>{controle?.km_saida.toLocaleString("pt-BR")}</td>
-      <td>{controle?.km_retorno?.toLocaleString("pt-BR") ?? "-"}</td>
-      <td>{controle?.data_retorno}</td>
-      <td>{controle?.hora_retorno}</td>
-      <td>
-        {controle?.veiculo?.km_troca_oleo?.toLocaleString("pt-BR") ?? "-"}
-      </td>
       <td>{controle?.destino}</td>
       <td className="actions">
+        <button onClick={() => handleModal()}>
+          <Eye color="green" size={20} />
+        </button>
         <button>
           <PencilSimple
             onClick={() => {
-                controle?.id && setSelectedControle(controle.id)
-                handleEdit(controle!);
+              controle?.id && setSelectedControle(controle.id);
+              handleEdit(controle!);
             }}
             color="blue"
             size={20}
@@ -73,6 +77,9 @@ export const ControlTableLine = ({
       </td>
       {modal.showModal && (
         <Modal closeModal={handCloseModal} motorista={controle?.motorista} />
+      )}
+      {controleModal && (
+        <ControlModal handleModal={handleModal} controle={controle!} />
       )}
     </tr>
   );

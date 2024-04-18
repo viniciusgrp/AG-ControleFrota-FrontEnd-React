@@ -14,7 +14,7 @@ export const ControlTableStyle = styled.table`
   tr {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1.4fr 1.1fr 1.1fr 1fr 1.2fr 1.1fr 1fr 1.2fr 1fr 0.7fr;
+    grid-template-columns: 1fr 1fr 1fr 1.4fr  1.1fr 1fr 1.2fr 1fr 0.7fr;
     text-align: center;
     th {
       padding: 8px;
@@ -41,7 +41,7 @@ export const ControlTableStyle = styled.table`
   }
   .actions {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     button {
         border: none;
     }

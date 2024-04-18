@@ -22,16 +22,20 @@ export const CardMobileStyle = styled.div`
         .actions {
             display: flex;
             justify-content: space-between;
+            flex-direction: column;
             gap: 16px;
             margin-top: 8px;
 
             button {
                 border: none;
-                width: 50%;
+                width: 100%;
                 padding: 16px;
                 border-radius: 8px;
                 color: white;
                 text-transform: uppercase;
+            }
+            .see {
+                background-color: green;
             }
             .edit {
                 background-color: blue;
