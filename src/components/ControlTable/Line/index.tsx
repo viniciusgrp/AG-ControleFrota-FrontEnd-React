@@ -3,6 +3,7 @@ import { Controle } from "../../../interfaces";
 import { useState } from "react";
 import { Modal } from "../../Modal";
 import { ControlModal } from "../../ControlModal";
+import { format } from "date-fns";
 
 interface IProps {
   controle: Controle | null;
@@ -27,11 +28,11 @@ export const ControlTableLine = ({
     id: null,
   });
 
-  const [controleModal, setControleModal] = useState<boolean>(false)
+  const [controleModal, setControleModal] = useState<boolean>(false);
 
   const handleModal = () => {
-    setControleModal(!controleModal)
-  }
+    setControleModal(!controleModal);
+  };
 
   const handCloseModal = () => setModal({ showModal: false, id: null });
   return (
@@ -40,13 +41,14 @@ export const ControlTableLine = ({
       <td>{controle?.veiculo?.marca}</td>
       <td>{controle?.veiculo?.veiculo}</td>
       <td
+        style={{ cursor: "pointer" }}
         onClick={() =>
           setModal({ showModal: true, id: controle?.motorista.id || null })
         }
       >
         {controle?.motorista?.nome}
       </td>
-      <td>{controle?.data_saida}</td>
+      <td>{format(new Date(controle?.data_saida || ""), "dd/MM/yyyy")}</td>
       <td>{controle?.hora_saida}</td>
       <td>{controle?.km_saida.toLocaleString("pt-BR")}</td>
       <td>{controle?.destino}</td>

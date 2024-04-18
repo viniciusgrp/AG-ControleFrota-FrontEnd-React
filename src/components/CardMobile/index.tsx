@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Controle } from "../../interfaces";
 import { ControlModal } from "../ControlModal";
 import { CardMobileStyle } from "./style";
+import { format } from "date-fns";
 
 interface IProps {
   controle: Controle;
@@ -34,7 +35,7 @@ export const CardMobile = ({
         </li>
         <li>
           <p>Data Saída</p>
-          <p>{controle.data_saida}</p>
+          <p>{format(new Date(controle?.data_saida || ""), "dd/MM/yyyy")}</p>
         </li>
         <li>
           <p>KM Saída</p>
@@ -46,11 +47,11 @@ export const CardMobile = ({
         </li>
         <li>
           <p>Data Retorno</p>
-          <p>{controle.data_retorno}</p>
+          <p>{format(new Date(controle.data_retorno || ""), "dd/MM/yyyy")}</p>
         </li>
         <li>
           <p>KM Retorno</p>
-          <p>{controle.km_retorno?.toLocaleString("pt-br")}</p>
+          <p>{controle.km_retorno.toLocaleString("pt-br")}</p>
         </li>
         <div className="actions">
           <button className="see">Visualizar</button>

@@ -6,10 +6,10 @@ export interface Controle {
   km_saida: number;
   destino: string;
   id?: number;
-  data_retorno?: string;
-  hora_retorno?: string;
-  km_retorno?: number;
-  km_percorrido?: number;
+  data_retorno: string;
+  hora_retorno: string;
+  km_retorno: number;
+  km_percorrido: number;
 }
 
 export interface Veiculo {

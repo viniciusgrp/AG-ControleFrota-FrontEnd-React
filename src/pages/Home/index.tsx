@@ -21,7 +21,7 @@ import { format } from "date-fns";
 import { CardMobile } from "../../components/CardMobile";
 
 export const Home = () => {
-  const [data, setData] = useState<Controle[] | null>(null);
+  const [data, setData] = useState<Controle[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [module, setModule] = useState<string>("listagem");
   const [editar, setEditar] = useState<boolean>(false);

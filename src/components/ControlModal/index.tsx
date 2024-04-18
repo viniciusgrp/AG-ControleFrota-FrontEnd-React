@@ -1,6 +1,7 @@
 import { X } from "@phosphor-icons/react";
 import { Controle } from "../../interfaces";
 import { ControlModalStyle } from "./style";
+import { format } from "date-fns";
 
 interface IProps {
   controle: Controle;
@@ -13,7 +14,9 @@ export const ControlModal = ({ controle, handleModal }: IProps) => {
       <div onClick={(e) => e.stopPropagation()} className="modal">
         <header>
           <h2>Veículo</h2>
-          <button onClick={() => handleModal()}><X/></button>
+          <button onClick={() => handleModal()}>
+            <X />
+          </button>
         </header>
         <ul>
           <li>
@@ -30,7 +33,7 @@ export const ControlModal = ({ controle, handleModal }: IProps) => {
           </li>
           <li>
             <p>Troca de óleo::</p>
-            <p>{controle.veiculo.km_troca_oleo}</p>
+            <p>{controle.veiculo.km_troca_oleo.toLocaleString("pt-br")}</p>
           </li>
         </ul>
         <h2>Motorista</h2>
@@ -56,7 +59,7 @@ export const ControlModal = ({ controle, handleModal }: IProps) => {
         <ul>
           <li>
             <p>Data de saída:</p>
-            <p>{controle.data_saida}</p>
+            <p>{format(new Date(controle.data_saida || ""), "dd/MM/yyyy")}</p>
           </li>
           <li>
             <p>Hora de saída:</p>
@@ -68,11 +71,11 @@ export const ControlModal = ({ controle, handleModal }: IProps) => {
           </li>
           <li>
             <p>KM de saída:</p>
-            <p>{controle.km_saida}</p>
+            <p>{controle.km_saida.toLocaleString("pt-br")}</p>
           </li>
           <li>
             <p>Data de retorno:</p>
-            <p>{controle.data_retorno}</p>
+            <p>{format(new Date(controle.data_retorno || ""), "dd/MM/yyyy")}</p>
           </li>
           <li>
             <p>Hora de retorno:</p>
@@ -80,11 +83,11 @@ export const ControlModal = ({ controle, handleModal }: IProps) => {
           </li>
           <li>
             <p>KM de retorno:</p>
-            <p>{controle.km_retorno}</p>
+            <p>{controle.km_retorno.toLocaleString("pt-br")}</p>
           </li>
           <li>
             <p>KM percorrido:</p>
-            <p>{controle.km_percorrido}</p>
+            <p>{controle.km_percorrido.toLocaleString("pt-br")}</p>
           </li>
         </ul>
       </div>
