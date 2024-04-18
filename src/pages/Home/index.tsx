@@ -173,9 +173,13 @@ export const Home = () => {
     setModule("criacao")
   }
 
+  useEffect(() => {
+    console.log(searchDate)
+  },[searchDate])
+
   const getControleDate = async () => {
-    if (!searchDate) {
-        toast.error("Selecione uma data")
+    if (searchDate === null) {
+        getData()
         return
     }
     try {
@@ -222,7 +226,6 @@ export const Home = () => {
           <button
             className="search"
             onClick={() => getControleDate()}
-            disabled={!searchDate}
           >
             Pesquisar
           </button>
