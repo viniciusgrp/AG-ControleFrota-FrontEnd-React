@@ -162,6 +162,7 @@ export const Home = () => {
         data_saida: controle.data_saida,
         data_retorno: controle.data_retorno ?? ''
     })
+    setEditar(true)
     setModule("criacao")
   }
 
@@ -202,22 +203,19 @@ export const Home = () => {
           </button>
         )}
       </div>
-        <h3 className="filterTitle">Pesquisa por data de saída</h3>
-        <div className="filter">
-          <DatePicker
-            value={searchDate}
-            onChange={(date) => setSearchDate(date)}
-          />
-          <button className="clean" onClick={() => setSearchDate(null)}>
-            Limpar
-          </button>
-          <button
-            className="search"
-            onClick={() => getControleDate()}
-          >
-            Pesquisar
-          </button>
-        </div>
+      <h3 className="filterTitle">Pesquisa por data de saída</h3>
+      <div className="filter">
+        <DatePicker
+          value={searchDate}
+          onChange={(date) => setSearchDate(date)}
+        />
+        <button className="clean" onClick={() => setSearchDate(null)}>
+          Limpar
+        </button>
+        <button className="search" onClick={() => getControleDate()}>
+          Pesquisar
+        </button>
+      </div>
       {module === "listagem" ? (
         isMobile ? (
           data?.map((c) => (
@@ -344,7 +342,9 @@ export const Home = () => {
                 shrink: true,
               }}
             />
-            <button className="confirm button">Enviar</button>
+            <button className="confirm button">
+              {editar ? "Editar" : "Enviar"}
+            </button>
             <button
               onClick={() => setModule("listagem")}
               className="cancel button"
