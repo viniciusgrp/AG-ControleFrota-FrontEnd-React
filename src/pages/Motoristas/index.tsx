@@ -61,14 +61,12 @@ export const Motoristas = () => {
     try {
         if (editar) {
             const {data} = await api.patch(`/motoristas/${selectedMotorista}/`, body)
-            console.log(data)
             toast.success("Motorista editado com sucesso!")
             getDrivers()
             setEditar(false)
             setSelectedMotorista(motoristasOptions[0].id)
         } else {
             const {data} = await api.post(`/motoristas/`, body)
-            console.log(data)
             toast.success("Motorista cadastrado com sucesso!")
             getDrivers()
             setSelectedMotorista(motoristasOptions[0].id)

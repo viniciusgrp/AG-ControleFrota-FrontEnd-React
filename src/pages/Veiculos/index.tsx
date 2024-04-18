@@ -45,14 +45,12 @@ export const Veiculos = () => {
     try {
       if (editar) {
         const { data } = await api.patch(`/veiculos/${selectedVeiculo}/`, body);
-        console.log(data);
         toast.success("Veículo editado com sucesso!");
         getVeiculos();
         setEditar(false);
         setSelectedVeiculo(veiculosOptions[0].id);
       } else {
         const { data } = await api.post(`/veiculos/`, body);
-        console.log(data);
         toast.success("Veículo cadastrado com sucesso!");
         getVeiculos();
         setSelectedVeiculo(veiculosOptions[0].id);

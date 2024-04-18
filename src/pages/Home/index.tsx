@@ -88,12 +88,7 @@ export const Home = () => {
   const onSubmit = async (body: any) => {
     try {
       if (editar) {
-        console.log({
-          ...body,
-          ...bodyState,
-          veiculo: selectedVeiculo,
-          motorista: selectedMotorista,
-        });
+
         await api.patch(`/controle/${selectedControle}/`, {
           ...body,
           ...bodyState,
@@ -118,9 +113,6 @@ export const Home = () => {
           Number(watch("km_retorno")) - Number(watch("km_saida")) <= 0
           ? "0"
           : Number(watch("km_retorno")) - Number(watch("km_saida")),
-        });
-        console.log({
-            ...body,
         });
         toast.success("Veículo cadastrado com sucesso!");
         getData();
@@ -172,10 +164,6 @@ export const Home = () => {
     })
     setModule("criacao")
   }
-
-  useEffect(() => {
-    console.log(searchDate)
-  },[searchDate])
 
   const getControleDate = async () => {
     if (searchDate === null) {
@@ -257,7 +245,6 @@ export const Home = () => {
             <Select
               onChange={(e) => {
                 setSelectedMotorista(e.target.value);
-                console.log(e, "SELECT");
               }}
               labelId="label-motorista"
               label="Para editar selecione um motorista"
