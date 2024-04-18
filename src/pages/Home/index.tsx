@@ -41,7 +41,7 @@ export const Home = () => {
     data_saida: "",
     data_retorno: "",
   });
-  const [searchDate, setSearchDate] = useState<Date | null>(null)
+  const [searchDate, setSearchDate] = useState<Date | null>(null);
 
   const { register, handleSubmit, setValue, watch } = useForm();
 
@@ -88,7 +88,6 @@ export const Home = () => {
   const onSubmit = async (body: any) => {
     try {
       if (editar) {
-
         await api.patch(`/controle/${selectedControle}/`, {
           ...body,
           ...bodyState,
@@ -102,22 +101,22 @@ export const Home = () => {
         toast.success("Veículo editado com sucesso!");
         getData();
         setEditar(false);
-        setModule("listagem")
-    } else {
+        setModule("listagem");
+      } else {
         await api.post(`/controle/`, {
-            ...body,
-            ...bodyState,
-            veiculo: selectedVeiculo,
-            motorista: selectedMotorista,
+          ...body,
+          ...bodyState,
+          veiculo: selectedVeiculo,
+          motorista: selectedMotorista,
           km_percorrido:
-          Number(watch("km_retorno")) - Number(watch("km_saida")) <= 0
-          ? "0"
-          : Number(watch("km_retorno")) - Number(watch("km_saida")),
+            Number(watch("km_retorno")) - Number(watch("km_saida")) <= 0
+              ? "0"
+              : Number(watch("km_retorno")) - Number(watch("km_saida")),
         });
         toast.success("Veículo cadastrado com sucesso!");
         getData();
-        setModule("listagem")
-    }
+        setModule("listagem");
+      }
     } catch (error) {
       console.error(error);
       toast.error("Erro!");
@@ -151,71 +150,93 @@ export const Home = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const handleEdit = (controle: Controle) => {
-    setValue("km_saida", controle.km_saida)
-    setValue("km_retorno", controle.km_retorno)
-    setValue("hora_saida", controle.hora_saida)
-    setValue("hora_retorno", controle.hora_retorno)
-    setValue("destino", controle.destino)
-    setSelectedVeiculo(controle.veiculo.id)
-    setSelectedMotorista(controle.motorista.id)
+    setValue("km_saida", controle.km_saida);
+    setValue("km_retorno", controle.km_retorno);
+    setValue("hora_saida", controle.hora_saida);
+    setValue("hora_retorno", controle.hora_retorno);
+    setValue("destino", controle.destino);
+    setSelectedVeiculo(controle.veiculo.id);
+    setSelectedMotorista(controle.motorista.id);
     setBody({
-        data_saida: controle.data_saida,
-        data_retorno: controle.data_retorno ?? ''
-    })
-    setEditar(true)
-    setModule("criacao")
-  }
+      data_saida: controle.data_saida,
+      data_retorno: controle.data_retorno ?? "",
+    });
+    setEditar(true);
+    setModule("criacao");
+  };
+
+  const handleClear = () => {
+    setValue("km_saida", "");
+    setValue("km_retorno", "");
+    setValue("hora_saida", "");
+    setValue("hora_retorno", "");
+    setValue("destino", "");
+    setSelectedVeiculo("");
+    setSelectedMotorista("");
+    setBody({
+      data_saida: "",
+      data_retorno: "" ?? "",
+    });
+    setModule("criacao");
+  };
 
   const getControleDate = async () => {
     if (searchDate === null) {
-        getData()
-        return
+      getData();
+      return;
     }
     try {
-    const { data } = await api.get("/controle/date/", {
-      params: {
-        data_pesquisa: format(new Date(searchDate), 'yyyy-MM-dd')
-      },
-    });
-    setData(data)
+      const { data } = await api.get("/controle/date/", {
+        params: {
+          data_pesquisa: format(new Date(searchDate), "yyyy-MM-dd"),
+        },
+      });
+      setData(data);
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     data?.forEach((e) => {
-        (e.veiculo.km_troca_oleo - e.km_saida <= 1000 ||
-          e.veiculo.km_troca_oleo - (e.km_retorno || 0) <= 1000) && toast.error(`Veículo de placa ${e.veiculo.placa} está próximo à troca de óleo.`)
-    })
-  },[data])
+      (e.veiculo.km_troca_oleo - e.km_saida <= 1000 ||
+        e.veiculo.km_troca_oleo - (e.km_retorno || 0) <= 1000) &&
+        toast.error(
+          `Veículo de placa ${e.veiculo.placa} está próximo à troca de óleo.`
+        );
+    });
+  }, [data]);
 
   return (
     <HomeStyle>
-      <Header />
+      <Header changePages={() => setModule("listagem")} />
       <div className="infos">
         <h1>Controle de Frota</h1>
         {module === "listagem" ? (
-          <button onClick={() => setModule("criacao")}>Criar Controle</button>
+          <button onClick={() => handleClear()}>Criar Controle</button>
         ) : (
           <button onClick={() => setModule("listagem")}>
             Listar Controles
           </button>
         )}
       </div>
-      <h3 className="filterTitle">Pesquisa por data de saída</h3>
-      <div className="filter">
-        <DatePicker
-          value={searchDate}
-          onChange={(date) => setSearchDate(date)}
-        />
-        <button className="clean" onClick={() => setSearchDate(null)}>
-          Limpar
-        </button>
-        <button className="search" onClick={() => getControleDate()}>
-          Pesquisar
-        </button>
-      </div>
+      {module === "listagem" && (
+        <>
+          <h3 className="filterTitle">Pesquisa por data de saída</h3>
+          <div className="filter">
+            <DatePicker
+              value={searchDate}
+              onChange={(date) => setSearchDate(date)}
+            />
+            <button className="clean" onClick={() => setSearchDate(null)}>
+              Limpar
+            </button>
+            <button className="search" onClick={() => getControleDate()}>
+              Pesquisar
+            </button>
+          </div>
+        </>
+      )}
       {module === "listagem" ? (
         isMobile ? (
           data?.map((c) => (
